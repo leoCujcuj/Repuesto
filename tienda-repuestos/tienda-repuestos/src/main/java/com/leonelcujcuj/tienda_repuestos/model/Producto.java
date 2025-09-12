@@ -1,5 +1,6 @@
 package com.leonelcujcuj.tienda_repuestos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "id_proveedor", nullable = false,
             foreignKey = @ForeignKey(name = "fk_id_proveedor"))
+    @JsonIgnoreProperties({"nombre","correo","telefono","direccion"})
     private Proveedor proveedor;
 
     public Integer getIdProducto() {
