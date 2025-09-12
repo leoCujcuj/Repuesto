@@ -1,5 +1,6 @@
 package com.leonelcujcuj.tienda_repuestos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -18,11 +19,13 @@ public class Factura {
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false,
             foreignKey = @ForeignKey(name = "fk_id_cliente"))
+    @JsonIgnoreProperties({"nombre","correo","telefono","direccion"})
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_empleado", nullable = false,
             foreignKey = @ForeignKey(name = "fk_id_empleado"))
+    @JsonIgnoreProperties({"nombre","correo","telefono","direccion","puesto","salario"})
     private Empleado empleado;
 
     @Column(name = "total", precision = 10)
