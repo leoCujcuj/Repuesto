@@ -27,9 +27,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente saveCliente(Cliente cliente) {
-        List<Cliente> clientesExistentes = clienteRepository.findAllByCorreo(cliente.getCorreo());
-        if (!clientesExistentes.isEmpty()) {
+        if (clienteRepository.findByCorreo(cliente.getCorreo()).isPresent()) {
             throw new IllegalArgumentException("El correo ya está registrado");
+        }
+        if (!clienteRepository.findAllByTelefono(cliente.getTelefono()).isEmpty()) {
+            throw new IllegalArgumentException("El teléfono ya está registrado");
         }
         return clienteRepository.save(cliente);
     }
@@ -49,6 +51,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void deleteCliente(Integer id) {
-        clienteRepository.deleteById(id);
+        try {
+            clienteRepository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("No se puede eliminar: el cliente está asociado a una factura");
+        }
     }
 }

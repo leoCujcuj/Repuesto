@@ -21,6 +21,9 @@ public class Empleado {
     @Column(name = "puesto", length = 50)
     private String puesto;
 
+    @Column(name= "salario")
+    private float salario;
+
     public Integer getIdEmpleado() {
         return idEmpleado;
     }
@@ -43,5 +46,13 @@ public class Empleado {
 
     public void setPuesto(String puesto) {
         this.puesto = puesto;
+    }
+
+    public float getSalario() {
+        return salario;
+    }
+
+    public void setSalario(float salario) {
+        this.salario = salario;
     }
 }
