@@ -2,6 +2,7 @@ package com.leonelcujcuj.tienda_repuestos.service;
 
 import com.leonelcujcuj.tienda_repuestos.model.Cliente;
 import com.leonelcujcuj.tienda_repuestos.repository.ClienteRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class ClienteServiceImpl implements ClienteService {
     public void deleteCliente(Integer id) {
         try {
             clienteRepository.deleteById(id);
-        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("No se puede eliminar: el cliente está asociado a una factura");
         }
     }
